@@ -11,6 +11,9 @@ namespace ActivityConnect.DataAccess.EntityFrameworkCore
         public DbSet<User> Users { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<UserPermission> UserPermissions { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<District> Districts { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,6 +21,9 @@ namespace ActivityConnect.DataAccess.EntityFrameworkCore
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new UserPermissionConfiguration());
+            modelBuilder.ApplyConfiguration(new  AddressConfiguration());
+            modelBuilder.ApplyConfiguration(new  CityConfiguration());
+            modelBuilder.ApplyConfiguration(new  DistrictConfiguration());
         }
     }
 }

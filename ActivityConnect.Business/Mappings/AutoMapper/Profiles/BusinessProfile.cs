@@ -1,4 +1,5 @@
 ﻿using ActivityConnect.Core.DbModels;
+using ActivityConnect.Core.ViewModels.AddressVM;
 using ActivityConnect.Core.ViewModels.PermissionVM;
 using ActivityConnect.Core.ViewModels.UserVM;
 using AutoMapper;
@@ -24,6 +25,8 @@ namespace ActivityConnect.Business.Mappings.AutoMapper.Profiles
             CreateMap<Permission, CreatePermissionInput>().ReverseMap();
             CreateMap<Permission, UpdatePermissionInput>().ReverseMap();
 
+            //Address
+            CreateMap<Address,CreateAddressInput>().ReverseMap();
         }
     }
 }

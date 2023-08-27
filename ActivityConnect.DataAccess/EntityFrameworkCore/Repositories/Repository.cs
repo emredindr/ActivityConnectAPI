@@ -59,7 +59,7 @@ namespace ActivityConnect.DataAccess.EntityFrameworkCore.Repositories
 
         public async Task<TEntity> InsertAsync(TEntity entity)
         {
-            SetCreationAudit(entity);
+            //SetCreationAudit(entity);
 
             _dbSet.Add(entity);
             await _appDbContext.SaveChangesAsync();
@@ -89,7 +89,7 @@ namespace ActivityConnect.DataAccess.EntityFrameworkCore.Repositories
 
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            SetModificationAudit(entity);
+            //SetModificationAudit(entity);
 
             _dbSet.Update(entity);
             await _appDbContext.SaveChangesAsync();
@@ -110,7 +110,7 @@ namespace ActivityConnect.DataAccess.EntityFrameworkCore.Repositories
         {
             var record = await _dbSet.FindAsync(id);
 
-            SetDeletionAudit(record);
+            //SetDeletionAudit(record);
 
             _dbSet.Update(record);
             await _appDbContext.SaveChangesAsync();
