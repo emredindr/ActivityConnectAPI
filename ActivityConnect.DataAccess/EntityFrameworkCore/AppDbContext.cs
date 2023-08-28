@@ -20,6 +20,7 @@ namespace ActivityConnect.DataAccess.EntityFrameworkCore
         public DbSet<Activity>Activities { get; set; }
         public DbSet<AuthorActivity> AuthorActivities { get; set; }
         public DbSet<ActivityType> ActivityTypes { get; set; }
+        public DbSet<ActivityDocument> ActivityDocuments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,6 +37,7 @@ namespace ActivityConnect.DataAccess.EntityFrameworkCore
             modelBuilder.ApplyConfiguration(new ActivityConfiguration());
             modelBuilder.ApplyConfiguration(new ActivityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorActivityConfiguration());
+            modelBuilder.ApplyConfiguration(new ActivityDocumentConfiguration());
         }
     }
 }
