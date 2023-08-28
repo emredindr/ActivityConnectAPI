@@ -25,12 +25,15 @@ public class VenueDocumentAppService : BaseAppService,IVenueDocumentAppService
     public async Task CreateVenueDocument(CreateVenueDocumentInput input)
     {
         var venue = await _venueRepository.FirstOrDefaultAsync(x => x.Id == input.VenueId);
-        if (venue == null) throw new ApiException($"{venue.Id} nolu Id degeri bulunamadı");
+
+        if (venue == null) throw new ApiException($"{input.VenueId} nolu Id degeri bulunamadı");
 
         var document = await _documentRepository.FirstOrDefaultAsync(x => x.Id == input.DocumentId);
-        if (document == null) throw new ApiException($"{document.Id} nolu Id degeri bulunamadı");
+
+        if (document == null) throw new ApiException($"{input.DocumentId} nolu Id degeri bulunamadı");
 
         var newVenueDocument = Mapper.Map<VenueDocument>(input);
+
         await _venueDocumentRepository.InsertAsync(newVenueDocument);
 
     }

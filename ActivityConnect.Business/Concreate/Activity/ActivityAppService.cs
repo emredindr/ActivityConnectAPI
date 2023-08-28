@@ -7,6 +7,7 @@ using ActivityConnect.Core.ViewModels.ActivityTypeVM.Dtos;
 using ActivityConnect.Core.ViewModels.ActivityVM;
 using ActivityConnect.Core.ViewModels.AddressVM.Dtos;
 using ActivityConnect.Core.ViewModels.AuthorActivityVM.Dtos;
+using ActivityConnect.Core.ViewModels.Document.Dtos;
 using ActivityConnect.Core.ViewModels.VenueVM.Dtos;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,9 +22,12 @@ public class ActivityAppService : BaseAppService, IActivityAppService
     private readonly IRepository<Address, int> _addressRepository;
     private readonly IRepository<City, int> _cityRepository;
     private readonly IRepository<District, int> _districtRepository;
+    private readonly IRepository<ActivityDocument, int> _activityDocumentRepository;
+    private readonly IRepository<Document, int> _documentRepository;
 
 
-    public ActivityAppService(IRepository<ActivityType, int> activityTypeRepository, IRepository<AuthorActivity, int> authorActivityRepository, IRepository<Activity, int> activityRepository, IRepository<Venue, int> venueRepository, IRepository<Address, int> addressRepository, IRepository<City, int> cityRepository, IRepository<District, int> districtRepository)
+
+    public ActivityAppService(IRepository<ActivityType, int> activityTypeRepository, IRepository<AuthorActivity, int> authorActivityRepository, IRepository<Activity, int> activityRepository, IRepository<Venue, int> venueRepository, IRepository<Address, int> addressRepository, IRepository<City, int> cityRepository, IRepository<District, int> districtRepository, IRepository<ActivityDocument, int> activityDocumentRepository, IRepository<Document, int> documentRepository)
     {
         _activityTypeRepository = activityTypeRepository;
         _authorActivityRepository = authorActivityRepository;
@@ -32,6 +36,8 @@ public class ActivityAppService : BaseAppService, IActivityAppService
         _addressRepository = addressRepository;
         _cityRepository = cityRepository;
         _districtRepository = districtRepository;
+        _activityDocumentRepository = activityDocumentRepository;
+        _documentRepository = documentRepository;
     }
 
     public async Task<ListResult<GetAllActivityInfo>> GetActivityList()
@@ -89,6 +95,16 @@ public class ActivityAppService : BaseAppService, IActivityAppService
                                             Name = activityType.Name,
                                             Description = activityType.Description,
                                         }).FirstOrDefault(),
+
+                        Images = (from activityDocument in _activityDocumentRepository.GetAll()
+                                  join document in _documentRepository.GetAll() on activityDocument.DocumentId equals document.Id
+                                  where activityDocument.ActivityId == activity.Id
+                                  select new DocumentDto
+                                  {
+                                      Id = document.Id,
+                                      Url = document.Url,
+                                      ContentType = document.ContentType,
+                                  }).ToList()
                     };
 
         var activities = await query.ToListAsync();

@@ -61,8 +61,7 @@ public class VenueAppService : BaseAppService, IVenueAppService
                                       Url = document.Url,
                                       Id = document.Id,
                                       ContentType = document.ContentType,
-                                  }
-                                  ).ToList()
+                                  }).ToList()
                     };
 
         var vanues = await query.ToListAsync();

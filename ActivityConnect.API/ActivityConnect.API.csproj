@@ -32,8 +32,4 @@
     <ProjectReference Include="..\ActivityConnect.Business\ActivityConnect.Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\NewFolder\" />
-  </ItemGroup>
-
 </Project>
