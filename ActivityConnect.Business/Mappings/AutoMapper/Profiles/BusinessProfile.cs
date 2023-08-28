@@ -3,6 +3,7 @@ using ActivityConnect.Core.ViewModels.AddressVM;
 using ActivityConnect.Core.ViewModels.AddressVM.Dtos;
 using ActivityConnect.Core.ViewModels.PermissionVM;
 using ActivityConnect.Core.ViewModels.UserVM;
+using ActivityConnect.Core.ViewModels.VenueDocument;
 using ActivityConnect.Core.ViewModels.VenueVM;
 using AutoMapper;
 
@@ -21,18 +22,21 @@ namespace ActivityConnect.Business.Mappings.AutoMapper.Profiles
             CreateMap<User, UpdateUserInput>().ReverseMap();
             CreateMap<User, UserLoginOutput>().ReverseMap();
 
-          
+
             //Permission
             CreateMap<Permission, GetAllPermissionInfo>().ReverseMap();
             CreateMap<Permission, CreatePermissionInput>().ReverseMap();
             CreateMap<Permission, UpdatePermissionInput>().ReverseMap();
 
             //Address
-            CreateMap<Address,CreateAddressInput>().ReverseMap();
+            CreateMap<Address, CreateAddressInput>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
 
             //Venue
-            CreateMap<Venue,CreateVenueInput>().ReverseMap();
+            CreateMap<Venue, CreateVenueInput>().ReverseMap();
+
+            //VenueDocument
+            CreateMap<VenueDocument, CreateVenueDocumentInput>().ReverseMap();
         }
     }
 }
