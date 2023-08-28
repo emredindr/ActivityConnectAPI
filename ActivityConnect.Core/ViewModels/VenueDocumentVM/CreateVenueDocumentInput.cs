@@ -1,4 +1,4 @@
-﻿namespace ActivityConnect.Core.ViewModels.VenueDocument;
+﻿namespace ActivityConnect.Core.ViewModels.VenueDocumentVM;
 
 public class CreateVenueDocumentInput
 {

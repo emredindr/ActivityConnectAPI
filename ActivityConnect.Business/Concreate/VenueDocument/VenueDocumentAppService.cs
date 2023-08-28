@@ -4,7 +4,7 @@ using ActivityConnect.Core.Aspects.AutoFac.Validation;
 using ActivityConnect.Core.DbModels;
 using ActivityConnect.Core.Extensions.ResponseAndExceptionMiddleware;
 using ActivityConnect.Core.Repositories;
-using ActivityConnect.Core.ViewModels.VenueDocument;
+using ActivityConnect.Core.ViewModels.VenueDocumentVM;
 
 namespace ActivityConnect.Business.Concreate;
 

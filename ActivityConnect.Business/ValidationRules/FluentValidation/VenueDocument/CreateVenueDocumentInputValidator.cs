@@ -1,4 +1,4 @@
-﻿using ActivityConnect.Core.ViewModels.VenueDocument;
+﻿using ActivityConnect.Core.ViewModels.VenueDocumentVM;
 using FluentValidation;
 
 namespace ActivityConnect.Business.ValidationRules.FluentValidation.VenueDocument;

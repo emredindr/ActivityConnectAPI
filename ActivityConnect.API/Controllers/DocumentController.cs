@@ -1,6 +1,6 @@
 ﻿using ActivityConnect.Business.Abstract;
 using ActivityConnect.Core.Extensions.ResponseAndExceptionMiddleware;
-using ActivityConnect.Core.ViewModels.Document;
+using ActivityConnect.Core.ViewModels.DocumentVM;
 using Firebase.Storage;
 using Microsoft.AspNetCore.Mvc;
 

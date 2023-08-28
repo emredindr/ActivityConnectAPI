@@ -1,4 +1,4 @@
-﻿using ActivityConnect.Core.ViewModels.VenueDocument;
+﻿using ActivityConnect.Core.ViewModels.VenueDocumentVM;
 
 namespace ActivityConnect.Business.Abstract;
 

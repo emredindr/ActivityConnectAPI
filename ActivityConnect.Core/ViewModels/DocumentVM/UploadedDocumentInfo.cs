@@ -1,4 +1,4 @@
-﻿namespace ActivityConnect.Core.ViewModels.Document;
+﻿namespace ActivityConnect.Core.ViewModels.DocumentVM;
 
 public class UploadedDocumentInfo
 {

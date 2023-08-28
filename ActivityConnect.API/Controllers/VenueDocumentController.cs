@@ -1,5 +1,5 @@
 ﻿using ActivityConnect.Business.Abstract;
-using ActivityConnect.Core.ViewModels.VenueDocument;
+using ActivityConnect.Core.ViewModels.VenueDocumentVM;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActivityConnect.API.Controllers
