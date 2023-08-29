@@ -17,10 +17,14 @@ namespace ActivityConnect.DataAccess.EntityFrameworkCore
         public DbSet<Venue> Venues { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<VenueDocument> VenueDocuments { get; set; }
-        public DbSet<Activity>Activities { get; set; }
+        public DbSet<Activity> Activities { get; set; }
         public DbSet<AuthorActivity> AuthorActivities { get; set; }
         public DbSet<ActivityType> ActivityTypes { get; set; }
         public DbSet<ActivityDocument> ActivityDocuments { get; set; }
+        public DbSet<Seat> Seats { get; set; }
+        public DbSet<SeatCategory> SeatCategories { get; set; }
+        public DbSet<UserActivity> UserActivities { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +42,10 @@ namespace ActivityConnect.DataAccess.EntityFrameworkCore
             modelBuilder.ApplyConfiguration(new ActivityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorActivityConfiguration());
             modelBuilder.ApplyConfiguration(new ActivityDocumentConfiguration());
+            modelBuilder.ApplyConfiguration(new UserActivityConfiguration());
+            modelBuilder.ApplyConfiguration(new SeatConfiguration());
+            modelBuilder.ApplyConfiguration(new SeatCategoryConfiguration());
+
         }
     }
 }
