@@ -7,7 +7,7 @@ public class CreateVenueDocumentInputValidator : AbstractValidator<CreateVenueDo
 {
 	public CreateVenueDocumentInputValidator()
 	{
-        RuleFor(x => x.DocumentId).GreaterThanOrEqualTo(1).WithMessage("Döküman bilgisi bulunamadı").NotEmpty().WithMessage("Doküman bilgisi gereklidir.");
+        RuleFor(x => x.DocumentIds).NotEmpty().WithMessage("Doküman bilgisi gereklidir.");
         RuleFor(x => x.VenueId).GreaterThanOrEqualTo(1).WithMessage("Mekan bilgisi seçilmelidir").NotEmpty().WithMessage("Mekan bilgisi gereklidir.");
     }
 }

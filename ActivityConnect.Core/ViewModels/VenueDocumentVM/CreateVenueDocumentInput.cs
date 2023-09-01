@@ -3,5 +3,5 @@
 public class CreateVenueDocumentInput
 {
     public int VenueId { get; set; }
-    public int DocumentId { get; set; }
+    public List<int> DocumentIds { get; set; }
 }

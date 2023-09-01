@@ -1,9 +1,11 @@
 ﻿using ActivityConnect.Core.DbModels;
 using ActivityConnect.Core.ViewModels.ActivityDocumentVM;
+using ActivityConnect.Core.ViewModels.ActivityTypeVM;
 using ActivityConnect.Core.ViewModels.ActivityVM;
 using ActivityConnect.Core.ViewModels.AddressVM;
 using ActivityConnect.Core.ViewModels.AddressVM.Dtos;
 using ActivityConnect.Core.ViewModels.AuthorActivityVM;
+using ActivityConnect.Core.ViewModels.CityVM;
 using ActivityConnect.Core.ViewModels.PermissionVM;
 using ActivityConnect.Core.ViewModels.UserVM;
 using ActivityConnect.Core.ViewModels.VenueDocumentVM;
@@ -46,7 +48,7 @@ namespace ActivityConnect.Business.Mappings.AutoMapper.Profiles
             //ActivityDocument
             CreateMap<ActivityDocument, CreateActivityDocumentInput>().ReverseMap();
 
-            
+
             //AuthorActivity
             CreateMap<AuthorActivity, CreateAuthorActivityInput>().ReverseMap();
 
@@ -54,6 +56,11 @@ namespace ActivityConnect.Business.Mappings.AutoMapper.Profiles
             CreateMap<Activity, CreateActivityInput>().ReverseMap();
             CreateMap<Activity, GetAllActivityInfo>().ReverseMap();
 
+            //ActivityType
+            CreateMap<ActivityType, GetAllActivityTypeInfo>().ReverseMap();
+
+            //City
+            CreateMap<City, GetAllCityInfo>().ReverseMap();
         }
     }
 }

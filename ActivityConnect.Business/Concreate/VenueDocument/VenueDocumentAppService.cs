@@ -28,13 +28,23 @@ public class VenueDocumentAppService : BaseAppService,IVenueDocumentAppService
 
         if (venue == null) throw new ApiException($"{input.VenueId} nolu Id degeri bulunamadı");
 
-        var document = await _documentRepository.FirstOrDefaultAsync(x => x.Id == input.DocumentId);
+        foreach (var documentId in input.DocumentIds)
+        {
+            var document = await _documentRepository.FirstOrDefaultAsync(x => x.Id == documentId);
 
-        if (document == null) throw new ApiException($"{input.DocumentId} nolu Id degeri bulunamadı");
+            if (document == null) throw new ApiException($"{documentId} nolu Id degeri bulunamadı");
 
-        var newVenueDocument = Mapper.Map<VenueDocument>(input);
+            var newVenueDocument = new VenueDocument
+            {
+                VenueId=input.VenueId,
+                DocumentId=documentId,
+            };
 
-        await _venueDocumentRepository.InsertAsync(newVenueDocument);
+            await _venueDocumentRepository.InsertAsync(newVenueDocument);
+        }
+       
+
+        
 
     }
 }

@@ -24,8 +24,4 @@
     <ProjectReference Include="..\ActivityConnect.DataAccess\ActivityConnect.DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abstract\ActivityType\" />
-  </ItemGroup>
-
 </Project>

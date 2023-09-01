@@ -1,6 +1,7 @@
 ﻿using ActivityConnect.Business.Abstract;
 using ActivityConnect.Core.Dto.Response;
 using ActivityConnect.Core.ViewModels.VenueVM;
+using ActivityConnect.Core.ViewModels.VenueVM.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActivityConnect.API.Controllers;
@@ -21,6 +22,12 @@ public class VenueController : BaseController
     public async Task<ListResult<GetAllVenueInfo>> GetVenueList()
     {
         return await _venueAppService.GetVenueList();
+    }
+
+    [HttpGet("GetVenueListByCityId")]
+    public async Task<ListResult<VenueDto>> GetVenueListByCityId(int cityId)
+    {
+        return await _venueAppService.GetVenueListByCityId(cityId);
     }
 
     [HttpPost("CreateVenue")]

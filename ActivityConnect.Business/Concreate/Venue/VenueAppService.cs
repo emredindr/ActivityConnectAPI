@@ -3,10 +3,12 @@ using ActivityConnect.Business.ValidationRules.FluentValidation.Venue;
 using ActivityConnect.Core.Aspects.AutoFac.Validation;
 using ActivityConnect.Core.DbModels;
 using ActivityConnect.Core.Dto.Response;
+using ActivityConnect.Core.Extensions.Linq;
 using ActivityConnect.Core.Repositories;
 using ActivityConnect.Core.ViewModels.AddressVM.Dtos;
 using ActivityConnect.Core.ViewModels.Document.Dtos;
 using ActivityConnect.Core.ViewModels.VenueVM;
+using ActivityConnect.Core.ViewModels.VenueVM.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace ActivityConnect.Business.Concreate;
@@ -71,6 +73,36 @@ public class VenueAppService : BaseAppService, IVenueAppService
         return new ListResult<GetAllVenueInfo>(mappedVenues);
     }
 
+    public async Task<ListResult<VenueDto>> GetVenueListByCityId(int cityId)
+    {
+        var query = from venue in _venueRepository.GetAll()
+                    join address in _addressRepository.GetAll() on venue.AddressId equals address.Id
+                    join city in _cityRepository.GetAll() on address.CityId equals city.Id
+                    join district in _districtRepository.GetAll() on address.DistrictId equals district.Id
+                    where cityId == city.Id
+                    select new VenueDto
+                    {
+                        Id = venue.Id,
+                        Name = venue.Name,
+                        PhoneNumber = venue.PhoneNumber,
+                        SeatCapacity = venue.SeatCapacity,
+                        Address = new AddressDto
+                        {
+                            Id = address.Id,
+                            Latitude = address.Latitude,
+                            Longitude = address.Longitude,
+                            Name = address.Name,
+                            OpenAddress = address.OpenAddress,
+                            CityName = city.Name,
+                            DistrictName = district.Name
+                        }
+                    };
+        var venues = await query.ToListAsync();
+
+        return new ListResult<VenueDto>(venues);
+    }
+
+
     [ValidationAspect(typeof(CreateVenueInputValidator))]
     public async Task CreateVenue(CreateVenueInput input)
     {
@@ -82,5 +114,4 @@ public class VenueAppService : BaseAppService, IVenueAppService
 
         await _venueRepository.InsertAsync(newVenue);
     }
-
 }
