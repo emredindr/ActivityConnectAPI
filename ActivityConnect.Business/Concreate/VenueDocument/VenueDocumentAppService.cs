@@ -42,9 +42,5 @@ public class VenueDocumentAppService : BaseAppService,IVenueDocumentAppService
 
             await _venueDocumentRepository.InsertAsync(newVenueDocument);
         }
-       
-
-        
-
     }
 }

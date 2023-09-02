@@ -3,6 +3,6 @@
 public class CreateActivityDocumentInput
 {
     public int ActivityId { get; set; }
-    public int DocumentId { get; set; }
+    public List<int> DocumentIds { get; set; }
     public bool IsDefault { get; set; } = false;
 }

@@ -118,16 +118,27 @@ public class ActivityAppService : BaseAppService, IActivityAppService
     {
         var newAuthorActivity = Mapper.Map<AuthorActivity>(input.AuthorActivity);
 
-        var authorActivityId = await _authorActivityRepository.InsertAndGetIdAsync(newAuthorActivity);
-
-        if (authorActivityId == null)
-        {
-            throw new ApiException("Author oluşturulurken hata oldu !");
-        }
-
         var newActivity = Mapper.Map<Activity>(input);
 
-        newActivity.AuthorActivityId = authorActivityId;
+        var AuthorActivity = await _authorActivityRepository.FirstOrDefaultAsync(x => x.Author == newAuthorActivity.Author);
+
+        if (AuthorActivity == null)
+        {
+           var _authorActivityId = await _authorActivityRepository.InsertAndGetIdAsync(newAuthorActivity);
+
+            if (_authorActivityId == null)
+            {
+                throw new ApiException("Author oluşturulurken hata oldu !");
+            }
+            newActivity.AuthorActivityId = _authorActivityId;
+
+        }
+
+        newActivity.AuthorActivityId = AuthorActivity.Id;
+
+
+
+        newActivity.EndDate = newActivity.StartDate.AddHours(3);
 
         await _activityRepository.InsertAsync(newActivity);
     }

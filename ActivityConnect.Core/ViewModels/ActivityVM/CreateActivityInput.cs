@@ -11,7 +11,7 @@ public class CreateActivityInput
     public float TicketPrice { get; set; }
     public int TicketCapacity { get; set; }
     public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
     public CreateAuthorActivityInput AuthorActivity { get; set; }
 }

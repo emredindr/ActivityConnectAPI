@@ -7,7 +7,7 @@ public class CreateActivityDocumentInputValidator : AbstractValidator<CreateActi
 {
     public CreateActivityDocumentInputValidator()
     {
-        RuleFor(x => x.DocumentId).GreaterThanOrEqualTo(1).WithMessage("Döküman bilgisi bulunamadı").NotEmpty().WithMessage("Doküman bilgisi gereklidir.");
+        RuleFor(x => x.DocumentIds).NotEmpty().WithMessage("Doküman bilgisi gereklidir.");
         RuleFor(x => x.ActivityId).GreaterThanOrEqualTo(1).WithMessage("Etkinlik  bilgisi seçilmelidir").NotEmpty().WithMessage("Etkinlik bilgisi gereklidir.");
     }
 }
