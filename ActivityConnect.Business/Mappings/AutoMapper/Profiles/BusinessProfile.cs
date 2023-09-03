@@ -55,6 +55,7 @@ namespace ActivityConnect.Business.Mappings.AutoMapper.Profiles
             //Activity
             CreateMap<Activity, CreateActivityInput>().ReverseMap();
             CreateMap<Activity, GetAllActivityInfo>().ReverseMap();
+            CreateMap<Activity, GetAllVenueActivityInfo>().ReverseMap();
 
             //ActivityType
             CreateMap<ActivityType, GetAllActivityTypeInfo>().ReverseMap();

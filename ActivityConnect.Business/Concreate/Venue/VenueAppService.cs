@@ -3,7 +3,6 @@ using ActivityConnect.Business.ValidationRules.FluentValidation.Venue;
 using ActivityConnect.Core.Aspects.AutoFac.Validation;
 using ActivityConnect.Core.DbModels;
 using ActivityConnect.Core.Dto.Response;
-using ActivityConnect.Core.Extensions.Linq;
 using ActivityConnect.Core.Repositories;
 using ActivityConnect.Core.ViewModels.AddressVM.Dtos;
 using ActivityConnect.Core.ViewModels.Document.Dtos;

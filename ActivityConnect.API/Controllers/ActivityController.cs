@@ -22,6 +22,12 @@ namespace ActivityConnect.API.Controllers
             return await _activityAppService.GetActivityList();
         }
 
+        [HttpGet("GetActivityListByVenueId")]
+        public async Task<GetAllVenueActivityInfo> GetActivityListByVenueId(int venueId)
+        {
+            return await _activityAppService.GetActivityListByVenueId(venueId);
+        }
+
         [HttpPost("CreateActivity")]
         public async Task CreateActivity(CreateActivityInput input)
         {

@@ -46,5 +46,9 @@ public class ActivityConfiguration : IEntityTypeConfiguration<Activity>
         
         builder.Property(_activity => _activity.EndDate)
            .HasColumnOrder(9);
+
+        builder.Property(_activity => _activity.IsFavorite)
+            .HasDefaultValue(false)
+           .HasColumnOrder(10);
     }
 }
