@@ -1,6 +1,7 @@
 ﻿using ActivityConnect.Business.Abstract;
 using ActivityConnect.Core.DbModels;
 using ActivityConnect.Core.Dto.Response;
+using ActivityConnect.Core.Extensions.Linq;
 using ActivityConnect.Core.Extensions.ResponseAndExceptionMiddleware;
 using ActivityConnect.Core.Repositories;
 using ActivityConnect.Core.ViewModels.ActivityTypeVM.Dtos;
@@ -43,7 +44,7 @@ public class ActivityAppService : BaseAppService, IActivityAppService
         _venueDocumentRepository = venueDocumentRepository;
     }
 
-    public async Task<ListResult<GetAllActivityInfo>> GetActivityList()
+    public async Task<ListResult<GetAllActivityInfo>> GetActivityList(GetAllActivityInput input)
     {
         var query = from activity in _activityRepository.GetAll()
                     select new GetAllActivityInfo
@@ -72,6 +73,7 @@ public class ActivityAppService : BaseAppService, IActivityAppService
                                                 {
                                                     Id = address.Id,
                                                     CityName = city.Name,
+                                                    CityId = city.Id,
                                                     DistrictName = district.Name,
                                                     Latitude = address.Latitude,
                                                     Longitude = address.Longitude,
@@ -113,6 +115,13 @@ public class ActivityAppService : BaseAppService, IActivityAppService
                                   }).ToList()
                     };
 
+
+        query = query.WhereIf(input.ActivityTypeId.HasValue, x => x.ActivityType.Id == input.ActivityTypeId).
+            WhereIf(input.VenueId.HasValue, x => x.Venue.Id == input.VenueId)
+            .WhereIf(input.CityId.HasValue, x => x.Venue.Address.CityId == input.CityId)
+            .WhereIf(input.StartDate.HasValue, x => x.StartDate >= input.StartDate)
+            .WhereIf(input.EndDate.HasValue, x => x.EndDate <= input.EndDate);
+
         var activities = await query.ToListAsync();
 
         var mappedActivities = Mapper.Map<List<GetAllActivityInfo>>(activities);
@@ -122,10 +131,10 @@ public class ActivityAppService : BaseAppService, IActivityAppService
 
     public async Task<GetAllVenueActivityInfo> GetActivityListByVenueId(int venueId)
     {
-        var venueCheck =  _venueRepository.FirstOrDefault(x => x.Id == venueId) ?? throw new ApiException("Mekan bilgisi bulunamadı");
+        var venueCheck = _venueRepository.FirstOrDefault(x => x.Id == venueId) ?? throw new ApiException("Mekan bilgisi bulunamadı");
 
         var query = from venue in _venueRepository.GetAll()
-                    where venue.Id== venueId
+                    where venue.Id == venueId
                     select new GetAllVenueActivityInfo
                     {
                         Name = venue.Name,
@@ -158,7 +167,7 @@ public class ActivityAppService : BaseAppService, IActivityAppService
                                   }).ToList(),
 
                         Activities = (from activity in _activityRepository.GetAll()
-                                      where activity.VenueId==venueId
+                                      where activity.VenueId == venueId && activity.StartDate >= DateTime.Now
                                       select new ActivityDto
                                       {
                                           Id = activity.Id,
@@ -207,6 +216,7 @@ public class ActivityAppService : BaseAppService, IActivityAppService
 
                     };
 
+
         var venueActivities = await query.SingleOrDefaultAsync();
 
 
@@ -216,7 +226,13 @@ public class ActivityAppService : BaseAppService, IActivityAppService
     }
     public async Task CreateActivity(CreateActivityInput input)
     {
-        var newAuthorActivity = Mapper.Map<AuthorActivity>(input.AuthorActivity);
+        //var newAuthorActivity = Mapper.Map<AuthorActivity>(input.AuthorActivity);
+        var newAuthorActivity = new AuthorActivity
+        {
+            Author = input.AuthorActivity.Author,
+            DirectedBy = input.AuthorActivity?.DirectedBy,
+            Translator = input.AuthorActivity?.Translator,
+        };
 
         var newActivity = Mapper.Map<Activity>(input);
 
@@ -231,10 +247,12 @@ public class ActivityAppService : BaseAppService, IActivityAppService
                 throw new ApiException("Author oluşturulurken hata oldu !");
             }
             newActivity.AuthorActivityId = _authorActivityId;
-
+        }
+        else
+        {
+            newActivity.AuthorActivityId = AuthorActivity.Id;
         }
 
-        newActivity.AuthorActivityId = AuthorActivity.Id;
 
 
 

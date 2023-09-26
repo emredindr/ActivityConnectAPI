@@ -17,9 +17,9 @@ namespace ActivityConnect.API.Controllers
         }
 
         [HttpGet("GetActivityList")]
-        public async Task<ListResult<GetAllActivityInfo>> GetActivityList()
+        public async Task<ListResult<GetAllActivityInfo>> GetActivityList([FromQuery] GetAllActivityInput input)
         {
-            return await _activityAppService.GetActivityList();
+            return await _activityAppService.GetActivityList(input);
         }
 
         [HttpGet("GetActivityListByVenueId")]
